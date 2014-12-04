@@ -56,6 +56,11 @@ static char imageURLKey;
                 if (!wself) return;
                 if (image) {
                     wself.image = image;
+                    if ([UIScreen mainScreen].scale > 1.0) {
+                        wself.image = [UIImage imageWithCGImage:image.CGImage scale:UIScreen mainScreen].scale orientation:UIImageOrientationUp];
+                    } else {
+                        wself.image = image;
+                    }
                     [wself setNeedsLayout];
                 } else {
                     if ((options & SDWebImageDelayPlaceholder)) {
